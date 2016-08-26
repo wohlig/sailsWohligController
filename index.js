@@ -6,26 +6,42 @@
  */
 var mongoose = require("mongoose");
 module.exports = {
+
     save: function(req, res) {
         req.model.saveData(req.body, res.callback);
     },
     delete: function(req, res) {
-        if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-            req.model.deleteData(req.body, res.callback);
+        if (req.body) {
+            if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                req.model.deleteData(req.body, res.callback);
+            } else {
+                res.json({
+                    value: false,
+                    data: "ObjectId Invalid"
+                });
+            }
         } else {
             res.json({
                 value: false,
-                data: "ObjectId Invalid"
+                data: "Invalid Request"
             });
         }
+
     },
     getOne: function(req, res) {
-        if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-            req.model.getOne(req.body, res.callback);
+        if (req.body) {
+            if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                req.model.getOne(req.body, res.callback);
+            } else {
+                res.json({
+                    value: false,
+                    data: "ObjectId Invalid"
+                });
+            }
         } else {
             res.json({
                 value: false,
-                data: "ObjectId Invalid"
+                data: "Invalid Request"
             });
         }
     },
