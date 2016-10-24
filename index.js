@@ -7,10 +7,10 @@
 var mongoose = require("mongoose");
 module.exports = {
 
-    save: function(req, res) {
+    save: function (req, res) {
         req.model.saveData(req.body, res.callback);
     },
-    delete: function(req, res) {
+    delete: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
                 req.model.deleteData(req.body, res.callback);
@@ -28,7 +28,7 @@ module.exports = {
         }
 
     },
-    getOne: function(req, res) {
+    getOne: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
                 req.model.getOne(req.body, res.callback);
@@ -45,7 +45,20 @@ module.exports = {
             });
         }
     },
-    search: function(req, res) {
+    search: function (req, res) {
         req.model.search(req.body, res.callback);
+    },
+    generateExcel: function (req, res) {
+        req.model.search({}, function (err, data) {
+            if (err) {
+                res.callback(err, data);
+            } else {
+                console.log(data);
+                var dataExcel = _.map(data.results, function (n) {
+                    return n._doc;
+                });
+                Config.generateExcel(req.modelName, dataExcel, res);
+            }
+        });
     }
 };

@@ -1,6 +1,6 @@
 {
   "name": "sails-wohlig-controller",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wohlig Sails Controller Import",
   "main": "index.js",
   "scripts": {
