@@ -49,16 +49,19 @@ module.exports = {
         req.model.search(req.body, res.callback);
     },
     generateExcel: function (req, res) {
-        req.model.search({}, function (err, data) {
-            if (err) {
-                res.callback(err, data);
-            } else {
-                console.log(data);
-                var dataExcel = _.map(data.results, function (n) {
-                    return n._doc;
-                });
-                Config.generateExcel(req.modelName, dataExcel, res);
-            }
-        });
+        User.generateExcel(req.modelName, res);
+    },
+    import: function (req, res) {
+        if (req.body.file) {
+            Config.importGS(req.body.file, function (err, data) {
+                if (err) {
+                    callback(err, callback);
+                } else {
+                    req.model.import(data, res.callback);
+                }
+            });
+        } else {
+            res.callback("Incorrect Data Format");
+        }
     }
 };
