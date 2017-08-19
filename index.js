@@ -49,7 +49,7 @@ module.exports = {
         req.model.search(req.body, res.callback);
     },
     generateExcel: function (req, res) {
-        User.generateExcel(req.modelName, res);
+        req.model.generateExcel(req.modelName, res);
     },
     import: function (req, res) {
         if (req.body.file) {
