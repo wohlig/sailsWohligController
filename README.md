@@ -1,1 +1,0 @@
-# wohlig-framework-core
